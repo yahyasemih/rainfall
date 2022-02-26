@@ -1,4 +1,29 @@
-$ ./level0 423
+When we open the binary with GDB, we notice that it compares a number given as argument with 0x1a7 (423),
+
+   0x08048ecf <+15>:	mov    eax,DWORD PTR [eax]
+   0x08048ed1 <+17>:	mov    DWORD PTR [esp],eax
+   0x08048ed4 <+20>:	call   0x8049710 <atoi>
+   0x08048ed9 <+25>:	cmp    eax,0x1a7
+   0x08048ede <+30>:	jne    0x8048f58 <main+152>
+   ...
+   0x08048f46 <+134>:	mov    DWORD PTR [esp+0x4],eax
+   0x08048f4a <+138>:	mov    DWORD PTR [esp],0x80c5348
+   0x08048f51 <+145>:	call   0x8054640 <execv>
+   ...
+   0x08048f58 <+152>:	mov    eax,ds:0x80ee170
+   0x08048f5d <+157>:	mov    edx,eax
+   0x08048f5f <+159>:	mov    eax,0x80c5350
+   0x08048f64 <+164>:	mov    DWORD PTR [esp+0xc],edx
+   0x08048f68 <+168>:	mov    DWORD PTR [esp+0x8],0x5
+   0x08048f70 <+176>:	mov    DWORD PTR [esp+0x4],0x1
+   0x08048f78 <+184>:	mov    DWORD PTR [esp],eax
+   0x08048f7b <+187>:	call   0x804a230 <fwrite>
+
+if it is equal then it opens the shell, writes No ! otherwise.
+
+~$ ./level0 abc
+No !
+~$ ./level0 423
 $ cd ../level1
 $ cat .pass
 1fe8a524fa4bec01ca4ea2a869af2a02260d4a7d5fe7e7c24d8617e6dca12d3a
