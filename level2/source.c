@@ -1,9 +1,6 @@
 #include <stdio.h>
 
 int run(){
-}
-
-int main(){
 	char buff[80];
 
 	fflush(stdout);
@@ -15,4 +12,7 @@ int main(){
 		puts(buff);
 		strdup(buff);
 	}
+}
+int main(){
+	p();
 }
