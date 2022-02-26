@@ -6,7 +6,7 @@ void o() {
 }
 
 void n() {
-	char buff[520];
+	char buff[512];
 	fgets(buff, 512, stdin);
 	printf(buff);
 	exit(1);
