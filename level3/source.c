@@ -3,7 +3,7 @@
 int m;
 
 void v() {
-	char buff[536];
+	char buff[512];
 
 	fget(buff, 512, stdin);
 	printf(buff);
@@ -15,5 +15,4 @@ void v() {
 
 int main() {
 	v();
-	return 0;
 }
