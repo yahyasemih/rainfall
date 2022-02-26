@@ -1,24 +1,35 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-char *auth = NULL;
-char *service = NULL;
-char buff[128];
+char *auth;
+char *service;
 
-int main(){
-	while(fgets(buff, 128, stdin) != NULL){
-		printf("%p, %p \n", auth , service);
-		if (strncmp(buff, "auth ", 5) == 0){
-			auth = malloc(sizeof(char *));
-			//if (strlen(buff + 5))
-			strcpy(auth, "12345678901234567890")
-		}
-		else if (strlen(buff + 5))
-		{
-			strncmp(buff, "service", 7) == 0
-		}
-		else if(strncmp(buff, "reset", 5) == 0){
-			free(auth)
-		}
+int main(void) {
+  char input[128];
 
-	}
+  do {
+    printf("%p, %p \n", auth, service);
+    if (!fgets(input, 128, stdin))
+      break;
+
+    if (strncmp(input, "auth ", 5) == 0) {
+      auth = (char *)malloc(4);
+      char *authName = (input + 5);
+
+      if (strlen(authName) < 30)
+        strcpy(auth, authName);
+    } else if (strncmp(input, "reset", 5) == 0) {
+      if (auth)
+        free(auth);
+    } else if (strncmp(input, "service", 7) == 0) {
+        service = strdup(input + 7);
+    } else if (strncmp(input, "login", 5) == 0) {
+      if (auth[32])
+        system("/bin/sh");
+      else
+        fwrite("Password:\n", 1, 10, stdout);
+    }
+  } while (1);
+  return 0;
 }
