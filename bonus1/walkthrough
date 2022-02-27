@@ -1,3 +1,14 @@
-./bonus1 -2147483637 $(python -c "print '1234567890123456789012345678901234567890FLOW'")
+In this level, the program waits for 2 arguments and check if the first one converted to int smaller than 9,
+if its the case then the program copy the 2nd argument to a buffer (of 40 characters) with size set to first argument * 4
+
+since we have to pass a number less than 9 we cannot overflow memcpy, but nothing prevents us to give a negative number
+it will satisfy the first condition (n <= 9), but we need to choose a number so that when we multiply it by for we have more than 44
+to be able to override n and pass the check that allow us to open the shell
+we can choose -2147483637 which is in binary 10000000000000000000000000001011
+when multiplied by 4 it will give 1000000000000000000000000000101100, after truncating the most significant bytes we will get 00000000000000000000000000101100
+which is 44, exactly what we need (40 for the buffer and 4 for n to be overriden)
+
+then as 2nd argument we give 40 characters to fill the buffer and then the value needed to open the shell (0x574f4c46)
+./bonus1 -2147483637 $(python -c "print '1234567890123456789012345678901234567890\x46\x4c\x4f\x57'")
 $ cat /home/user/bonus2/.pass
 579bd19263eb8655e4cf7b742d75edf8c38226925d78db8163506f5191825245
