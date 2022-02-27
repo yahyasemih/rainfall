@@ -1,4 +1,6 @@
+in this level the program reads the content of the flag and set the index passed as argument to NULL terminator
+thn compares the argment with the pass, if they are equal the program open the shell and prints the buff otherwise (which will be empty since nothing is left to read after reading the pass)
+to get the argument equal to the pass we should pass an empty string so that we set the index 0 of the pass to 0 which will make it empty string as well
 ./bonus ""
 $ cat /home/user/end/.pass
 3321b6f81659f9a71c76616f606e4b50189cecfea611393d5d649f75e157353c
-
